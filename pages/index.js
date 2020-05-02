@@ -101,13 +101,13 @@ export default function Host() {
       >
         <div className="description">
           <p>
-            <span role="presentation">👋</span> Hello friend! This page is for
-            event hosts.
+            <span role="presentation">👋</span> Hello friend! With Applause you
+            can host watch parties, invite people and let them clap!
           </p>
           <p>
-            Here you can insert the event embed URL (eg. a Twitch stream or a
-            YouTube live video). Applause will generate a event link to share
-            with your audience.
+            This page is for event hosts. Here you can insert the event embed
+            URL (eg. a Twitch stream or a YouTube live video). Applause will
+            generate a event link to share with your audience.
           </p>
           <p>
             Audience will send claps by clicking to any part of the page and we
