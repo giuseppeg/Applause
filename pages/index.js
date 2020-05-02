@@ -140,7 +140,7 @@ export default function Host() {
     <div>
       <div className="stats">
         <span>
-          {viewersCount} viewer{viewersCount > 1 && "s"}
+          {viewersCount} viewer{viewersCount !== 1 && "s"}
         </span>
         <span>
           {totalClaps.current} <span title="claps">👏</span>
