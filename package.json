@@ -1,0 +1,20 @@
+{
+  "name": "app-lause",
+  "version": "0.1.0",
+  "description": "Embed a video to add p2p applause",
+  "main": "index.js",
+  "scripts": {
+    "dev": "next",
+    "build": "next build",
+    "start": "next start"
+  },
+  "author": "Giuseppe Gurgone",
+  "license": "MIT",
+  "dependencies": {
+    "just-debounce": "^1.0.0",
+    "next": "^9.3.5",
+    "peerjs": "^1.2.0",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1"
+  }
+}
