@@ -119,7 +119,7 @@ export default function Host() {
           <Input
             type="url"
             name="url"
-            defaultValue="https://www.youtube.com/embed/UM-Q_zpuJGU"
+            defaultValue="https://www.youtube.com/embed/uXEEL9mrkAQ?start=108&autoplay=1"
           />
         </label>
         <Button>start</Button>
