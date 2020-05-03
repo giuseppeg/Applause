@@ -52,9 +52,19 @@ export default function Host() {
         });
       });
     });
+
+    function onBeforeUnload(e) {
+      e.preventDefault();
+      e.returnValue =
+        "By closing this window the watch party ends and the audience won't be able to broadcast their applauses.";
+    }
+
+    window.addEventListener("beforeunload", onBeforeUnload);
+
     return () => {
       aborted = true;
       peer && peer.destroy();
+      window.removeEventListener("beforeunload", onBeforeUnload);
     };
   }, [url]);
 
@@ -96,7 +106,7 @@ export default function Host() {
       <form
         onSubmit={(e) => {
           e.preventDefault();
-          setUrl(e.target.elements.url.value);
+          setUrl(urlToEmbed(e.target.elements.url.value));
         }}
       >
         <div className="description">
@@ -174,3 +184,46 @@ export default function Host() {
     </div>
   );
 }
+
+function urlToEmbed(url) {
+  const parsed = new URL(url);
+  const plugin = plugins.find((p) => p.test(parsed));
+  if (plugin) {
+    return plugin.getEmbed(parsed);
+  }
+  return url;
+}
+
+const plugins = [
+  {
+    test: ({ hostname }) => hostname.includes("youtube."),
+    getEmbed: ({ protocol, host, search }) => {
+      const params = new URLSearchParams(search);
+      const id = params.get("v");
+      params.delete("v");
+      return `${protocol}//${host}/embed/${id}?${params.toString()}&autoplay=1`;
+    },
+  },
+  {
+    test: ({ hostname, pathname }) =>
+      hostname.includes("facebook.") && pathname.includes("/videos/"),
+    getEmbed: ({ href }) => {
+      return (
+        "https://www.facebook.com/plugins/video.php?href=" +
+        encodeURIComponent(href) +
+        "&width=734&height=411"
+      );
+    },
+  },
+  {
+    test: ({ href }) => href.includes("twitch.tv/videos/"),
+    getEmbed: ({ href, pathname }) => {
+      const id = pathname.match(/videos\/(\d+)/);
+
+      if (id) {
+        return `https://player.twitch.tv/?autoplay=true&video=v${id[1]}`;
+      }
+      return href;
+    },
+  },
+];
