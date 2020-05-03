@@ -196,7 +196,8 @@ function urlToEmbed(url) {
 
 const plugins = [
   {
-    test: ({ hostname }) => hostname.includes("youtube."),
+    test: ({ hostname, search }) =>
+      hostname.includes("youtube.") && search.includes("v="),
     getEmbed: ({ protocol, host, search }) => {
       const params = new URLSearchParams(search);
       const id = params.get("v");
